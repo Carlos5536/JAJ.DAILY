@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Joke & Verse</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f7f7f7;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+    }
+    .joke, .verse {
+      margin: 20px 0;
+      font-size: 1.2em;
+    }
+    .meaning {
+      color: #666;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>😂 Your Daily Joke & ✝️ Verse</h1>
+    <div class="joke" id="joke"></div>
+    <div class="verse" id="verse"></div>
+    <div class="meaning" id="meaning"></div>
+  </div>
+
+  <script>
+    const jokes = [
+      "Why couldn’t Jonah trust the ocean? Because he knew there was something fishy about it!",
+      "Why did the scarecrow win an award? Because he was outstanding in his field!",
+      "Why don’t skeletons fight each other? They don’t have the guts."
+    ];
+
+    const verses = [
+      { text: "Philippians 4:13 – I can do all things through Christ who strengthens me.", meaning: "God gives you strength in all challenges." },
+      { text: "John 3:16 – For God so loved the world...", meaning: "A reminder of God's unconditional love." },
+      { text: "Proverbs 3:5 – Trust in the Lord with all your heart...", meaning: "Have faith even when you don’t understand." }
+    ];
+
+    // Pick a random joke and verse
+    document.getElementById("joke").innerText = jokes[Math.floor(Math.random() * jokes.length)];
+    let randomVerse = verses[Math.floor(Math.random() * verses.length)];
+    document.getElementById("verse").innerText = randomVerse.text;
+    document.getElementById("meaning").innerText = randomVerse.meaning;
+  </script>
+</body>
+</html>
