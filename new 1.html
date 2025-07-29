@@ -5,50 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JAJ Daily</title>
   <style>
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      text-align: center;
-      background: linear-gradient(135deg, #42e695, #3bb2b8);
-      padding: 20px;
-      color: #222;
-      margin: 0;
-    }
-    .card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 20px;
-      max-width: 600px;
-      margin: 40px auto;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-    h1 {
-      color: #0077cc;
-      margin-bottom: 15px;
-    }
-    .joke, .verse {
-      margin: 20px 0;
-      font-size: 1.2em;
-      font-weight: bold;
-    }
-    .meaning {
-      color: #555;
-      font-size: 1em;
-      margin-top: 10px;
-    }
-    button {
-      margin-top: 20px;
-      padding: 10px 25px;
-      font-size: 1em;
-      background: #0077cc;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background: #005fa3;
-    }
+    body { font-family: 'Segoe UI', Arial, sans-serif; text-align: center;
+      background: linear-gradient(135deg, #4facfe, #00f2fe); padding: 20px; color: #222; margin: 0; }
+    .card { background: #fff; border-radius: 16px; padding: 20px; max-width: 600px;
+      margin: 40px auto; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+    h1 { color: #0077cc; margin-bottom: 15px; }
+    .joke, .verse, .meaning { margin: 20px 0; font-size: 1.2em; font-weight: bold; }
+    .meaning { font-size: 1em; color: #555; }
+    button { margin-top: 20px; padding: 10px 25px; font-size: 1em; background: #0077cc;
+      color: white; border: none; border-radius: 8px; cursor: pointer; transition: background 0.3s; }
+    button:hover { background: #005fa3; }
   </style>
 </head>
 <body>
@@ -62,28 +28,29 @@
 
   <script src="jokes.js"></script>
   <script>
+    // Fetch a truly random Bible verse using Bible‑API.com
     async function getBibleVerse() {
       try {
-        const response = await fetch("https://labs.bible.org/api/?passage=random&type=json");
-        const data = await response.json();
-        const verse = data[0];
-        return `${verse.bookname} ${verse.chapter}:${verse.verse} – ${verse.text}`;
-      } catch (err) {
-        return "Could not load Bible verse.";
+        const res = await fetch("https://bible-api.com/verses/random");
+        const data = await res.json();
+        const v = data.verses[0];
+        return `${v.book_name} ${v.chapter}:${v.verse} – "${v.text.trim()}"`;
+      } catch {
+        return "John 3:16 – For God so loved the world that He gave His only Son...";
       }
     }
 
     async function generateContent() {
-      // Random Joke
-      const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
-      document.getElementById("joke").innerText = randomJoke;
-
-      // AI Bible Verse
-      const verseText = await getBibleVerse();
-      document.getElementById("verse").innerText = verseText;
-      document.getElementById("meaning").innerText = "Reflect on how this verse applies to your day.";
+      // Pick a random joke
+      document.getElementById("joke").innerText = jokes[Math.floor(Math.random() * jokes.length)];
+      
+      // Fetch and display a random verse
+      const verse = await getBibleVerse();
+      document.getElementById("verse").innerText = verse;
+      document.getElementById("meaning").innerText = "Reflect on how God’s Word speaks to your day.";
     }
 
+    // Initial load
     generateContent();
   </script>
 </body>
